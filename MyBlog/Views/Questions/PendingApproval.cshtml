@@ -1,0 +1,55 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@model IPagedList<MyBlog.Models.Questions>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container down col-md-11">
+
+    @using (Html.BeginForm("PendingApproval", "Questions", FormMethod.Get))
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString")
+            <input type="hidden" name="searchstring" value="@ViewBag.searchstring" />
+            <input type="submit" value="Search" />
+        </p>
+    }
+
+    @foreach (var item in Model)
+    {
+        <div class="panel panel-danger">
+            <div class="panel-heading">@Html.ActionLink(item.Title, "Detay", new { id = item.ID, Controller = "Questions" })</div>
+            @{
+                var summary = item.Question;
+                if (item.Question.Length > 100)
+                {
+                    summary = item.Question.Substring(0, 100);
+                }
+                <div class="panel-body">
+                    @Html.DisplayFor(modelItem => @summary)
+                    <br />
+                    <div class="pull-right">
+                        <i>
+                            @Html.DisplayFor(modelItem => item.Name)
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </i>
+                        <br />
+                        <div class="pull-right">
+                            <input type="hidden" name="searchstring" value="@ViewBag.searchstring" />
+                            @Html.ActionLink("Yayınla", "Confirmed", new { Controller = "Questions", id = item.ID }, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Detay", "Detay", new { Controller = "Questions", id = item.ID }, new { @class = "btn btn-warning" })
+                            @Html.ActionLink("Sil", "Delete", new { Controller = "Questions", id = item.ID }, new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+                }
+    <div class="pagedList">
+        <input type="hidden" name="searchstring" value="@ViewBag.searchstring" />
+        @Html.PagedListPager(Model, page => Url.Action("PendingApproval", new { page, searchstring = ViewBag.searchstring }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>

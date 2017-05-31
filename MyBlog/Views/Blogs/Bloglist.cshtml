@@ -1,0 +1,50 @@
+﻿@using Microsoft.Ajax.Utilities
+@using PagedList.Mvc
+@using PagedList
+@model IPagedList<MyBlog.Models.ViewModels.BlogsVM>
+@{
+    ViewBag.Title = "Bloglar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container down col-md-11">
+
+    <h2>Bloglar</h2>
+    @Html.ActionLink("Yeni Blog Yazısı", "Create", "Blog", new { @class = "pull-left lg" })
+    <br /> <br />
+
+    @{ int counter = 1 + ((ViewBag.page - 1) * 10); }
+    @foreach (var item in Model)
+    {
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                @counter )
+                @if (!item.Title.IsNullOrWhiteSpace())
+                {
+                    @Html.ActionLink(item.Title, "Detay", new { id = item.Id })
+                }
+            </div>
+
+            <div class="panel-body">
+                @{
+                    counter++;
+                    @Html.DisplayFor(modelItem => item.Summary)
+                }
+
+                <br /> <br />
+                <div class="panel-footer pull-right">
+                    <div class="buttonSize">
+                        @Html.ActionLink(item.IsPublished ? "Kaldır" : "Yayınla", "Publish", new {id = item.Id}) |
+                        @Html.ActionLink("Detay", "Detay", new {id = item.Id}) |
+                        @Html.ActionLink("Düzenle", "Edit", new {id = item.Id}) |
+                        @Html.ActionLink("sil", "Delete", new {id = item.Id})
+                    </div>
+                </div>
+            </div>
+        </div>
+                    }
+
+    <div class="pagedList">
+        @Html.PagedListPager(Model, sayfa => Url.Action("Bloglist", new { sayfa }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>

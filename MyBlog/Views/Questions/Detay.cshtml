@@ -1,0 +1,60 @@
+﻿@model MyBlog.Models.Questions
+
+@{
+    ViewBag.Title = "Detay";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Detay</h2>
+
+<div class="container col-md-11">
+    <h4>Soru Detayları</h4>
+    <hr />
+    <div class="panel-group">
+        <div class="panel panel-danger">
+            <div class="panel-heading"><b>@Html.DisplayFor(model => model.Title)</b></div>
+            <div class="panel-body">
+                @Html.DisplayFor(model => model.Question) <br />
+                @Html.DisplayFor(model => model.EMail) <br />
+                                
+                @if ((string)Session["Lang"] == "English") {
+                        <span>Onay durumu: </span>
+                    } else {
+                        <span>Is Confirmed: </span>
+                    }
+                
+                @Html.DisplayFor(model => model.IsConfirmed)
+                @if (!Model.IsConfirmed)
+                {
+                        @Html.ActionLink("Yayınla", "Confirmed", new { Controller = "Questions", id = Model.ID }, new { @class = "btn btn-success" })
+                }
+
+                <div class="panel-footer pull-right">
+                    <i>
+                        @Html.DisplayFor(model => model.Name)
+                        @Html.DisplayFor(model => model.Surname)
+                        <br />
+                        @Html.DisplayFor(model => model.Date)
+                    </i><p>
+                        @Html.ActionLink("Düzenle", "Edit", new { id = Model.ID }) |
+                        @Html.ActionLink("Sil", "Delete", new { id = Model.ID }) |
+                        @Html.ActionLink("Geri", "PendingApproval")
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-success">
+            <div class="panel-body">
+                @using (Html.BeginForm("Answer", "Questions", FormMethod.Post))
+                {
+                    <div class="textareapadding">
+                        <input type="hidden" name="id" value="@Model.ID" />
+                        @Html.TextArea("message", new { rows = "8", cols = "80", placeholder = "Cevap" })
+                        <input type="submit" name="submit" id="submit" value="Gönder" class="btn btn-success">
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</div>

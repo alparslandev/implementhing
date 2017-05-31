@@ -1,0 +1,11 @@
+﻿@using Microsoft.Ajax.Utilities
+@model IEnumerable<MyBlog.Models.ViewModels.AboutusVM>
+<div class="container">
+    @foreach (var item in Model)
+    {
+        if (!string.IsNullOrWhiteSpace(item.Content) && !string.IsNullOrWhiteSpace(item.Content))
+        {
+            @Html.DisplayFor(modelItem => item.Content)
+        }
+    }
+</div>

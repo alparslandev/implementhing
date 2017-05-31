@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNet.Identity
+@model MyBlog.Models.ViewModels.BlogsVM
+@{
+    ViewBag.Title = "Detay";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container col-md-12">
+    <h2>Yazı Detayları</h2>
+
+    <hr />
+
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            @if (!string.IsNullOrWhiteSpace(Model.Title))
+            {
+                @Html.ActionLink(Model.Title, "Detay", new { id = Model.Id })
+            }
+        </div>
+
+        <div class="panel-body">
+            @Html.DisplayFor(modelItem => Model.Content)
+
+
+            <br /> <br />
+            <div class="panel-footer pull-right">
+
+                <p>@ViewBag.name</p><br />
+                @Html.DisplayFor(modelItem => Model.Date)
+                <br />
+                <p>
+                    @{
+                        if (!string.IsNullOrEmpty(User.Identity.GetUserId()))
+                        {
+                        <p>@Html.ActionLink("Yeni Blog Yazısı", "Create", "Blogs") |</p>
+                        <p>@Html.ActionLink("Yazıyı Düzenle", "Edit", new { id = Model.Id }) |</p>
+                        <p>@Html.ActionLink("Yazıyı sil", "Delete", new { id = Model.Id }) |</p>
+                        <p>@Html.ActionLink("Geri", "Bloglist")</p>
+                        }
+                    }
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>

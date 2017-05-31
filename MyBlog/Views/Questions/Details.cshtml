@@ -1,0 +1,74 @@
+﻿@model MyBlog.Models.Questions
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container">
+    <h4>Soru Detayları</h4>
+    <hr />
+    <div class="panel-group">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <b>@Html.DisplayFor(model => model.Title)</b>
+                <div class="pull-right">
+                    <div class="fb-send"
+                         data-href="https://developers.facebook.com/docs/plugins/"
+                         data-layout="button_count">
+                    </div>
+                    <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                        <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Paylaş</a>
+                    </div>
+                    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div>
+                </div>
+            </div>
+            <div class="panel-body">
+                @Html.DisplayFor(model => model.Question) <br />
+
+                <div class="panel-footer pull-right">
+                    <i>
+                        @Html.DisplayFor(model => model.Name)
+                        <br />
+                        @Html.DisplayFor(model => model.Date)
+                    </i>
+                </div>
+            </div>
+        </div>
+        @if (ViewBag.cevap != null)
+        {
+            <div class="panel panel-success">
+
+                <div class="panel-heading">
+                    <p>Cevap</p>
+                </div>
+                <div class="panel-body">
+
+                    @{
+                        if (ViewBag.cevap != null)
+                        {
+                            @ViewBag.cevap
+                            <br />
+                        }
+                        <div class="panel-footer pull-right">
+                            @{
+                                if (ViewBag.user != null)
+                                {
+                                    @ViewBag.user
+                                }
+                                <br />
+                                if (ViewBag.date != null)
+                                {
+                                    @ViewBag.date
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+                                }
+    </div>
+    <p>
+        <br />
+        @Html.ActionLink("Geri", "Index")
+    </p>
+</div>

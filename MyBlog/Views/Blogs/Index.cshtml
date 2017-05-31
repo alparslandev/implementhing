@@ -1,0 +1,50 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@model IPagedList<MyBlog.Models.ViewModels.BlogsVM>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container down">
+
+    @{ int counter = 1 + ((ViewBag.page - 1) * 10); }
+    @foreach (var item in Model)
+    {
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                @counter )
+                @if (!string.IsNullOrWhiteSpace(item.Title))
+                {
+                    @Html.ActionLink(item.Title, "Details", new { id = item.Id })
+                }
+                <div class="pull-right">
+                    <div class="fb-send"
+                         data-href="https://developers.facebook.com/docs/plugins/"
+                         data-layout="button_count">
+                    </div>
+                    <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                        <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Paylaş</a>
+                    </div>
+                    <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                @{
+                    counter++;
+                    @Html.DisplayFor(modelItem => item.Summary)
+                }
+
+                <br />
+                <div class="panel-footer pull-right">
+                    @Html.DisplayFor(modelItem => item.Name) <br />
+                    @Html.DisplayFor(modelItem => item.Date)
+                </div>
+            </div>
+        </div>
+
+                    }
+    <div class="pagedList">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>

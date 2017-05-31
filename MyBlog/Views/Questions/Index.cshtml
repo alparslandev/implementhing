@@ -1,0 +1,56 @@
+﻿@using PagedList.Mvc
+@using PagedList
+@model IPagedList<MyBlog.Models.Questions>
+
+@{ ViewBag.Title = "Index"; }
+<div class="container down">
+    @Html.ActionLink("Soru Sor", "Create", "Sorular", new { @class = "btn btn-primary lg col-md-3" })
+    <br /> <br /> <br /> <br />
+    @using (Html.BeginForm("Index", "Questions", FormMethod.Get))
+    {
+        <p>
+            Başlık ve Soru Ara @Html.TextBox("SearchString")
+            <input type="hidden" name="searchstring" value="@ViewBag.searchstring" />
+            <input type="submit" value="Ara" />
+        </p>
+    }
+    @foreach (var item in Model)
+    {
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                @Html.ActionLink(item.Title, "Details", new { id = item.ID, Controller = "Questions" })
+            <div class="pull-right">
+                <div class="fb-send"
+                     data-href="https://developers.facebook.com/docs/plugins/"
+                     data-layout="button_count">
+                </div>
+                <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small" data-mobile-iframe="true">
+                    <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Paylaş</a>
+                </div>
+                <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="false"></div>
+            </div>
+        </div>
+
+        @{
+            var summary = item.Question;
+            if (item.Question.Length > 100)
+            {
+                summary = item.Question.Substring(0, 100);
+            }
+            <div class="panel-body">
+                @Html.DisplayFor(modelItem => @summary)
+                <br />
+                <div class="pull-right">
+                    <i>
+                        @Html.DisplayFor(modelItem => item.Name)
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </i>
+                </div>
+            </div>
+        }
+    </div>
+            }
+    <div class="pagedList">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchstring = ViewBag.searchstring }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>

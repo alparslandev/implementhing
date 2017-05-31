@@ -1,0 +1,207 @@
+﻿@using MyBlog.Controllers
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>@ViewBag.Title - Blog</title>
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap/css/theme.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="~/Content/style.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700,100' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:300,700,900,500' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.8/typicons.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/assets/css/pushy.css">
+    <link rel="stylesheet" href="~/Content/assets/css/masonry.css">
+    <link rel="stylesheet" href="~/Content/assets/css/animate.css">
+    <link rel="stylesheet" href="~/Content/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/Content/assets/css/odometer-theme-default.css">
+    <link rel="stylesheet" href="~/Content/Site.css">
+    <script>
+        window.odometerOptions = {
+          selector: '.odometer',
+          format: '(,ddd)', // Change how digit groups are formatted, and how many digits are shown after the decimal point
+          duration: 13000, // Change how long the javascript expects the CSS animation to take
+          theme: 'default'
+        };
+    </script>
+    @RenderSection("Scripts", required: false)
+</head>
+<body>
+    <script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '1807160876187747',
+            xfbml: true,
+            version: 'v2.7'
+        });
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <!-- Pushy Menu -->
+    <nav class="pushy pushy-left">
+        <ul class="list-unstyled">
+            @{
+                string home = "Ana Sayfa", aboutUs = "Hakkımda", questions = "Sorular";
+                if ((string)Session["Lang"] == "English")
+                {
+                    home = "Home";
+                    aboutUs = "About Us";
+                    questions = "Questions";
+                }
+            }
+
+            <li class="@(ViewBag.active == "Home" ? "active" : "")">@Html.ActionLink(home, "Index", "Home")</li>
+            <li class="@(ViewBag.active == "Aboutus" ? "active" : "")">@Html.ActionLink(aboutUs, "Index", "Aboutus")</li>
+            <li class="@(ViewBag.active == "Blog" ? "active" : "")">@Html.ActionLink("Blog", "Index", "Blogs")</li>
+            <li class="@(ViewBag.active == "Questions" ? "active" : "")">@Html.ActionLink(questions, "Index", "Questions")</li>
+            <li><a href="@Url.Action("Language", "Home")">@((string)Session["Lang"] == "English" ? "Türkçe" : "English")</a></li>
+        </ul>
+    </nav>
+    <!-- Site Overlay -->
+    <div class="site-overlay"></div>
+
+    <header id="home">
+        <div class="container-fluid" style="background-color: #1B1E27;">
+            <!-- change the image in style.css to the class header .container-fluid [approximately row 50] -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-xs-10">
+                        <a href="#" class="thumbnail logo">
+                            <h1 style="margin-bottom: 5px;">[AD]</h1>
+                            <strong style="margin-bottom: -10px" ;> Alparslan Selçuk Develioğlu</strong>
+                        </a>
+                    </div>
+                    <div class="col-md-1 col-md-offset-8 col-xs-2 text-center">
+                        <div class="menu-btn"><span class="hamburger"><i class="fa fa-bars"></i></span></div>
+                    </div>
+                </div>
+                <!--<div class="jumbotron">
+                    <h1 style="margin-top: 11%;">
+                        <small>Konu kod olduğunda</small><br/>
+                        <strong>Daha iyisi daima vardır</strong>
+                    </h1>
+                    <p style="font-size: x-large; color: #36c4c5; font-weight: bold;">
+                        Don't repeat yourself ( DRY )<br>
+                    </p>
+                    <p>
+                        <a class="btn btn-primary btn-lg" href="@Url.Action("Index", "Blogs")" role="button">Daha Fazla</a>
+                        <a target="_blank" href="@Url.Action("Index", "Questions")" class="btn btn-lg btn-danger" role="button">Soru Sor</a>
+                    </p>
+                </div>-->
+            </div>
+        </div>
+    </header>
+
+    <div class="body-content">
+        @RenderBody()
+    </div>
+
+    <section id="contact" class="prefooter wow fadeInUp" data-wow-delay="300ms">
+        <!-- change the image in style.css to the class .prefooter .container-fluid [approximately row 154] -->
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        @{
+                            string placeholder = "Mail Adresiniz...";
+                            if (Name.IsEnglish())
+                            {
+                                placeholder = "Your Mail Address...";
+                                <h3>Would you like to subscribe to blog posts ?</h3>
+                                <p>Just write down your e-mail address to get e-mails whenever new blog posts or questions are posted.</p>
+                            }
+                            else
+                            {
+                                <h3>Blog yazılarına abone olmak ister misiniz ?</h3>
+                                <p>Her yeni blog yazısı çıktığında veya soru yayınlandığında bildirim almak için e-mail adresinizi yazmanız yeterli.</p>
+                            }
+                        }
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="@placeholder">
+                            <br>
+                                @{
+                                    if (Name.IsEnglish())
+                                    {
+                                        <button type="button" class="btn btn-danger">Subscribe</button>
+                                    }
+                                    else
+                                    {
+                                        <button type="button" class="btn btn-danger">Abone Ol</button>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <p>© 2016 implementhing.com Designed and Developed by Alparslan Selçuk DEVELİOĞLU</p>
+                </div>
+                <div class="col-md-4">
+                    <p class="text-right social">
+                        <!--<a href="https://www.facebook.com/ThemeInTheBox/" target="_blank"><i class="typcn typcn-social-facebook-circular"></i></a>
+                            <a href="https://twitter.com/ThemeintheBox" target="_blank"><i class="typcn typcn-social-twitter-circular"></i></a>
+                            <i class="typcn typcn-social-tumbler-circular"></i>
+                            <i class="typcn typcn-social-github-circular"></i>
+                            <i class="typcn typcn-social-dribbble-circular"></i>-->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="~/Content/assets/js/jquery.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.0.4/js/bootstrap-scrollspy.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="~/Content/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="http://masonry.desandro.com/masonry.pkgd.js"></script>
+    <script src="~/Content/assets/js/masonry.js"></script>
+    <script src="~/Content/assets/js/pushy.min.js"></script>
+    <script src="~/Content/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/assets/js/wow.min.js"></script>
+    <script src="~/Content/assets/js/scripts.js"></script>
+    <script src="~/Content/assets/js/odometer.js"></script>
+
+</body>
+</html>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-34344036-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
