@@ -9,7 +9,7 @@ using MyBlog.Models;
 
 namespace MyBlog.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -131,7 +131,7 @@ namespace MyBlog.Controllers
             }
         }
         
-        //[Authorize]
+        [Authorize]
         public ActionResult Register()
         {
             return View();

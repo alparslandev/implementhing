@@ -137,7 +137,7 @@ namespace MyBlog.Controllers
                 liste.AddRange(list);
             }
 
-            return View(liste.ToPagedList(page, 2));
+            return View(liste.ToPagedList(page, 10));
         }
 
         // GET: Questions/Details/5

@@ -57,9 +57,10 @@ namespace MyBlog
             };
 
             // Configure user lockout defaults
-            manager.UserLockoutEnabledByDefault = false;
+            manager.UserLockoutEnabledByDefault = true;
             manager.DefaultAccountLockoutTimeSpan = TimeSpan.MaxValue;
             manager.MaxFailedAccessAttemptsBeforeLockout = 5;
+            
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.

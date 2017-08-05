@@ -202,3 +202,8 @@ footer p
 {
     padding-top: 50px;
 }
+.panel-heading {
+    color: #ffffff!important;
+    background-color: #3c4c6b1!important;
+    border-color: #dddddd!important;
+}
