@@ -234,6 +234,8 @@
     <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\ckeditor.js" />
     <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\config.js" />
     <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\contents.css" />
+    <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\lang\en.js" />
+    <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\lang\tr.js" />
     <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\plugins\about\dialogs\about.js" />
     <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\plugins\about\dialogs\hidpi\logo_ckeditor.png" />
     <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\plugins\about\dialogs\logo_ckeditor.png" />
@@ -255,6 +257,9 @@
     <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\plugins\wsc\dialogs\wsc.js" />
     <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\plugins\wsc\dialogs\wsc_ie.js" />
     <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\plugins\wsc\skins\moono-lisa\wsc.css" />
+    <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\skins\moono-lisa\icons.png" />
+    <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\skins\moono-lisa\icons_hidpi.png" />
+    <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\skins\moono-lisa\editor.css" />
     <Content Include="Content\ckeditor_4.6.2_standard\ckeditor\styles.js" />
     <Content Include="Content\corlate\css\animate.min.css" />
     <Content Include="Content\corlate\css\bootstrap.min.css" />
